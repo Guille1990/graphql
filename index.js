@@ -8,7 +8,13 @@ require('./db/setup')
 const app = express()
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({
-  schema    
+  schema,
+  formatError: (error) => {
+    return {
+      mensaje: error.message,
+      name: error.name
+    }
+  }
 }))
 
 app.use('/graphiql', graphiqlExpress({
